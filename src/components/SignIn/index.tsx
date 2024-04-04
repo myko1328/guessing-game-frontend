@@ -1,3 +1,5 @@
+import Button from "../Button";
+
 type ChangeEvent = {
   target: { value: string };
 };
@@ -28,12 +30,11 @@ const SignIn = ({ handleChange, formData, handleRegister }: SignInProps) => {
             value={formData}
           />
 
-          <button
-            onClick={handleRegister}
+          <Button
             className="w-3/4 bg-gradient-to-r from-rose-400 to-orange-300 rounded-md p-4 font-bold text-lg mt-6"
-          >
-            START
-          </button>
+            buttonName="Start"
+            handleClick={handleRegister}
+          />
         </div>
       </div>
     </div>

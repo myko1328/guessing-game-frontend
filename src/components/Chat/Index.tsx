@@ -3,6 +3,7 @@ import { Socket, io } from "socket.io-client";
 import { IoIosChatboxes } from "react-icons/io";
 
 import Title from "../Title";
+import Button from "../Button";
 
 const Chat = ({ registeredName }: { registeredName: string }) => {
   const [socket, setSocket] = useState<Socket>();
@@ -18,14 +19,17 @@ const Chat = ({ registeredName }: { registeredName: string }) => {
     });
   };
 
+  const HandleTriggerSend = () => {
+    send(name, chatVal);
+    setChatVal("");
+  };
+
   useEffect(() => {
     const newSocket = io("https://guessing-game-backend-iv52.onrender.com");
     setSocket(newSocket);
 
     // Listen for incoming messages
     newSocket.on("message", (message: { name: string; message: string }) => {
-      // Update the messages state to include the new message
-      // This assumes the server sends back an object with name and message
       setMessages((prevMessages) => [
         ...prevMessages,
         `${message.name}: ${message.message}`,
@@ -37,7 +41,6 @@ const Chat = ({ registeredName }: { registeredName: string }) => {
     };
   }, []);
 
-  // Inside your component
   useEffect(() => {
     const cpuNames = ["CPU 1", "CPU 2", "CPU 3"];
     const cpuMessages = [
@@ -50,9 +53,7 @@ const Chat = ({ registeredName }: { registeredName: string }) => {
     cpuNames.forEach((name, index) => {
       setTimeout(() => send(name, cpuMessages[index]), 5000 + index * 2000);
     });
-
-    // Note: No cleanup function is needed for setTimeout when used like this
-  }, [socket]); // Dependency array
+  }, [socket]);
 
   return (
     <div className="mt-8 flex flex-col gap-2">
@@ -73,15 +74,11 @@ const Chat = ({ registeredName }: { registeredName: string }) => {
             className="bg-[#272b33] flex-1 rounded-md px-2"
             placeholder="Type your message here..."
           />
-          <button
-            onClick={() => {
-              send(name, chatVal);
-              setChatVal("");
-            }}
+          <Button
             className="flex-none w-32 bg-gradient-to-r from-rose-400 to-orange-300 rounded-md p-2 font-bold"
-          >
-            Send
-          </button>
+            buttonName="Send"
+            handleClick={HandleTriggerSend}
+          />
         </div>
       </div>
     </div>

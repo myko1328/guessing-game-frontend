@@ -10,6 +10,7 @@ import Ranking from "./components/Ranking";
 import CurrentRound from "./components/CurrentRound";
 import SignIn from "./components/SignIn";
 import Cards from "./components/Cards";
+import Button from "./components/Button";
 
 import { GameResult } from "./components/types";
 
@@ -129,12 +130,11 @@ function App() {
                 betForm={betForm}
               />
             </div>
-            <button
-              onClick={handleGameStart}
+            <Button
               className="bg-gradient-to-r from-rose-400 to-orange-300 w-full rounded-md p-4 font-bold text-lg mt-6"
-            >
-              START
-            </button>
+              buttonName="Start"
+              handleClick={handleGameStart}
+            />
             <CurrentRound onGameStart={onGameStart} gameResult={gameResult} />
             <SpeedSlider setAnimationSpeed={setAnimationSpeed} />
           </aside>
