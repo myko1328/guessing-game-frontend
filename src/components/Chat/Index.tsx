@@ -4,6 +4,7 @@ import { IoIosChatboxes } from "react-icons/io";
 
 import Title from "../Title";
 import Button from "../Button";
+import useSendCpuMessages from "../../hooks/useSendCpuMessages";
 
 const Chat = ({ registeredName }: { registeredName: string }) => {
   const [socket, setSocket] = useState<Socket>();
@@ -18,6 +19,8 @@ const Chat = ({ registeredName }: { registeredName: string }) => {
       message: value,
     });
   };
+
+  useSendCpuMessages(socket, send);
 
   const HandleTriggerSend = () => {
     send(name, chatVal);
@@ -40,20 +43,6 @@ const Chat = ({ registeredName }: { registeredName: string }) => {
       newSocket.off("message");
     };
   }, []);
-
-  useEffect(() => {
-    const cpuNames = ["CPU 1", "CPU 2", "CPU 3"];
-    const cpuMessages = [
-      "Hello, I'm CPU 1!",
-      "CPU 2 here, how's it going?",
-      "Hey! CPU 3 in the house!",
-    ];
-
-    // Send each CPU message once after a delay
-    cpuNames.forEach((name, index) => {
-      setTimeout(() => send(name, cpuMessages[index]), 5000 + index * 2000);
-    });
-  }, [socket]);
 
   return (
     <div className="mt-8 flex flex-col gap-2">
