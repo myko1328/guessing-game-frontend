@@ -8,7 +8,7 @@ const Chat = ({ registeredName }: { registeredName: string }) => {
   const [socket, setSocket] = useState<Socket>();
   const [messages, setMessages] = useState<string[]>([]);
   const [chatVal, setChatVal] = useState<string>("");
-  const [name, setName] = useState<string>("Anonymous"); // Default name
+  const [name] = useState<string>("Anonymous"); // Default name
 
   const send = (name: string, value: string) => {
     // Emit an object containing both the name and the message
