@@ -68,9 +68,12 @@ function App() {
     }
 
     try {
-      const response = await axios.post("http://localhost:3000/users", {
-        name: formData,
-      });
+      const response = await axios.post(
+        "https://guessing-game-backend-iv52.onrender.com/users",
+        {
+          name: formData,
+        }
+      );
 
       if (response.status === 201 || response.status === 200) {
         const { data } = response;
@@ -89,7 +92,7 @@ function App() {
     try {
       setOnGameStart(true);
       const response = await axios.post<GameResult>(
-        "http://localhost:3000/users/play",
+        "https://guessing-game-backend-iv52.onrender.com/users/play",
         {
           bet_points: betForm.bet_points,
           predicted_multiplier: +betForm.predicted_multiplier,

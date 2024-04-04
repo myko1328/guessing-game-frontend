@@ -11,7 +11,9 @@ const Chat = () => {
   };
 
   useEffect(() => {
-    const newSocket = io("localhost:8001");
+    const newSocket = io(
+      "https://guessing-game-backend-iv52.onrender.com:8001"
+    );
     console.log({ newSocket });
     setSocket(newSocket);
   }, [setSocket]);
