@@ -9,7 +9,7 @@ const PointsInput = ({
   const Increment = () => {
     setBetForm((prevForm: { bet_points: number }) => ({
       ...prevForm,
-      bet_points: prevForm.bet_points + 5,
+      bet_points: prevForm.bet_points + 50,
     }));
   };
 
@@ -17,8 +17,8 @@ const PointsInput = ({
   const Decrement = () => {
     setBetForm((prevForm: { bet_points: number }) => ({
       ...prevForm,
-      // Ensure bet_points does not go below a certain threshold, e.g., 0
-      bet_points: Math.max(0, prevForm.bet_points - 5),
+      bet_points:
+        prevForm.bet_points >= 50 ? 50 : Math.max(0, prevForm.bet_points - 50),
     }));
   };
 

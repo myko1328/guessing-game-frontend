@@ -1,5 +1,7 @@
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
+import Title from "../Title";
+import { IoMdSpeedometer } from "react-icons/io";
 
 interface SpeedSliderProps {
   setAnimationSpeed: React.Dispatch<React.SetStateAction<number>>;
@@ -8,8 +10,10 @@ interface SpeedSliderProps {
 const SpeedSlider = ({ setAnimationSpeed }: SpeedSliderProps) => {
   return (
     <div className="flex flex-col justify-center gap-4 mt-4">
-      <h3 className="text-lg font-bold">Speed</h3>
-
+      <Title
+        icon={<IoMdSpeedometer size={22} style={{ margin: "auto 0 auto 0" }} />}
+        name="Speed"
+      />
       <div className="p-4 rounded-md bg-[#272b33] h-20 my-auto">
         <Slider
           className="mt-1"
@@ -52,7 +56,9 @@ const SpeedSlider = ({ setAnimationSpeed }: SpeedSliderProps) => {
             track: { background: "#fb7185", height: "12px" },
           }}
           dotStyle={{ display: "none" }}
-          onChange={(value) => setAnimationSpeed(+value / 2)}
+          onChange={(value) =>
+            setAnimationSpeed(((1 / (+value / 2)) * 100) / 5)
+          }
         />
       </div>
     </div>

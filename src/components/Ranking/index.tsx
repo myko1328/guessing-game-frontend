@@ -1,3 +1,5 @@
+import { FaRankingStar } from "react-icons/fa6";
+import Title from "../Title";
 import { GameResult } from "../types";
 
 const Ranking = ({ gameResults }: { gameResults: GameResult }) => {
@@ -17,10 +19,12 @@ const Ranking = ({ gameResults }: { gameResults: GameResult }) => {
     (a, b) => b.winnings - a.winnings
   );
 
-  console.log(sortedByWinnings);
   return (
     <div className="mt-8 flex flex-col gap-2">
-      <h3 className="text-lg font-bold">Rank</h3>
+      <Title
+        icon={<FaRankingStar size={22} style={{ margin: "auto 0 auto 0" }} />}
+        name="Ranking"
+      />
       <table className="table-auto w-full border border-[#272b33] min-h-[209px]">
         <thead className="bg-inherit h-12">
           <tr>
@@ -31,37 +35,16 @@ const Ranking = ({ gameResults }: { gameResults: GameResult }) => {
         </thead>
         <tbody>
           {sortedByWinnings.map((player, index) => (
-            <tr className="text-center h-8 bg-[#4e5461]">
+            <tr
+              className={`text-center h-8 ${
+                index % 2 === 0 ? "bg-[#4e5461]" : "bg-[#272b33]"
+              } `}
+            >
               <td>{index}</td>
               <td>{player.name}</td>
               <td>{player.winnings.toFixed(2)}</td>
             </tr>
           ))}
-          {/* <tr className="text-center h-8 bg-[#4e5461]">
-            <td>1</td>
-            <td>-</td>
-            <td>-</td>
-          </tr>
-          <tr className="text-center h-8 bg-[#272b33]">
-            <td>2</td>
-            <td>-</td>
-            <td>-</td>
-          </tr>
-          <tr className="text-center h-8">
-            <td>3</td>
-            <td>-</td>
-            <td>-</td>
-          </tr>
-          <tr className="text-center h-8 bg-[#272b33]">
-            <td>4</td>
-            <td>-</td>
-            <td>-</td>
-          </tr>
-          <tr className="text-center h-8">
-            <td>5</td>
-            <td>-</td>
-            <td>-</td>
-          </tr> */}
         </tbody>
       </table>
     </div>

@@ -17,7 +17,7 @@ const MultiplierInput = ({
   const Decrement = () => {
     setBetForm((prevForm: { predicted_multiplier: number }) => ({
       ...prevForm,
-      // Ensure bet_points does not go below a certain threshold, e.g., 0
+
       predicted_multiplier: Math.max(
         0,
         +prevForm.predicted_multiplier - 0.05

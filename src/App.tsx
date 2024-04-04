@@ -135,7 +135,7 @@ function App() {
             >
               START
             </button>
-            <CurrentRound gameResult={gameResult} />
+            <CurrentRound onGameStart={onGameStart} gameResult={gameResult} />
             <SpeedSlider setAnimationSpeed={setAnimationSpeed} />
           </aside>
         ) : (
@@ -162,7 +162,7 @@ function App() {
 
       <div className="grid grid-cols-2 gap-4 pb-8">
         <Ranking gameResults={gameResult} />
-        <Chat />
+        <Chat registeredName={registeredName.name} />
       </div>
     </div>
   );
