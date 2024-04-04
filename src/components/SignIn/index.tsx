@@ -1,12 +1,18 @@
-const SignIn = ({
-  handleChange,
-  formData,
-  handleRegister,
-}: {
-  handleChange: any;
+type ChangeEvent = {
+  target: { value: string };
+};
+
+type FormEvent = {
+  preventDefault: () => void;
+};
+
+interface SignInProps {
+  handleChange: (e: ChangeEvent) => void;
   formData: string;
-  handleRegister: any;
-}) => {
+  handleRegister: (e: FormEvent) => Promise<void>;
+}
+
+const SignIn = ({ handleChange, formData, handleRegister }: SignInProps) => {
   return (
     <div className="bg-[#272b33] min-h-[620px] flex-1">
       <div className="flex flex-col justify-center h-full">
