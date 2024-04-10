@@ -7,7 +7,7 @@ interface PlayerState {
   increase_amount: (operation: "pts" | "multiplier") => void;
 }
 
-export const usePlayerStore = create<PlayerState>((set, get) => ({
+export const usePlayerStore = create<PlayerState>((set) => ({
   bet_points: 50,
   predicted_multiplier: (100 / 100).toFixed(2),
   increase_amount: (operation: "pts" | "multiplier") => {
