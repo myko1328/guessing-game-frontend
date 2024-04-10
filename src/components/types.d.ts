@@ -18,12 +18,5 @@ export interface GameResult {
 }
 
 export interface BetsInputOnChangeProps {
-  formHandleChange: React.ChangeEventHandler<HTMLInputElement>;
-  pointsDefault?: number;
-  multiplierDefault?: string;
-  setBetForm: React.Dispatch<React.SetStateAction<BetFormState>>;
-  betForm?: {
-    bet_points: number;
-    predicted_multiplier: string;
-  };
+  formHandleChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
