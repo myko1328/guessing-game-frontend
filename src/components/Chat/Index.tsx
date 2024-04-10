@@ -64,6 +64,7 @@ const Chat = ({ registeredName }: { registeredName: string }) => {
             placeholder="Type your message here..."
           />
           <Button
+            type="text-lg"
             className="flex-none w-32 bg-gradient-to-r from-rose-400 to-orange-300 rounded-md p-2 font-bold"
             buttonName="Send"
             handleClick={HandleTriggerSend}

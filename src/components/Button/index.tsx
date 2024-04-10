@@ -1,5 +1,5 @@
 interface ButtonProps {
-  type: string;
+  type: "icon" | "text-lg";
   className: string;
   buttonName?: string;
   handleClick: (
