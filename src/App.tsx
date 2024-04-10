@@ -13,6 +13,7 @@ import Cards from "./components/Cards";
 import Button from "./components/Button";
 
 import { GameResult } from "./components/types";
+import { usePlayerStore } from "./store/playerStore";
 
 const initialGameState: GameResult = {
   player: {
@@ -38,23 +39,22 @@ function App() {
   const [onGameStart, setOnGameStart] = useState<boolean>(false);
   const [gameResult, setGameResult] = useState<GameResult>(initialGameState);
   const [animationSpeed, setAnimationSpeed] = useState<number>(1);
-  const [betForm, setBetForm] = useState<{
-    bet_points: number;
-    predicted_multiplier: string;
-  }>({
-    bet_points: 50,
-    predicted_multiplier: (100 / 100).toFixed(2),
-  });
+
+  const { betPts, multiplier } = usePlayerStore((state) => ({
+    betPts: state.bet_points,
+    multiplier: state.predicted_multiplier,
+  }));
+
   const [totalWinnings, setTotalWinnings] = useState<number>(0);
 
-  const formHandleChange = useCallback<
-    React.ChangeEventHandler<HTMLInputElement>
-  >(
-    (e) => {
-      setBetForm({ ...betForm, [e.target.id]: e.target.value });
-    },
-    [betForm]
-  );
+  // const formHandleChange = useCallback<
+  //   React.ChangeEventHandler<HTMLInputElement>
+  // >(
+  //   (e) => {
+  //     setBetForm({ ...betForm, [e.target.id]: e.target.value });
+  //   },
+  //   [betForm]
+  // );
 
   const handleChange = useCallback((e: { target: { value: string } }) => {
     setFormData(e.target.value);
@@ -95,8 +95,8 @@ function App() {
       const response = await axios.post<GameResult>(
         "https://guessing-game-backend-iv52.onrender.com/users/play",
         {
-          bet_points: betForm.bet_points,
-          predicted_multiplier: +betForm.predicted_multiplier,
+          bet_points: betPts,
+          predicted_multiplier: +multiplier,
         }
       );
 
@@ -117,20 +117,11 @@ function App() {
         {registeredName.isRegisted ? (
           <aside className="flex-none">
             <div className="flex gap-4">
-              <PointsInput
-                pointsDefault={betForm.bet_points}
-                formHandleChange={formHandleChange}
-                setBetForm={setBetForm}
-                betForm={betForm}
-              />
-              <MultiplierInput
-                multiplierDefault={betForm.predicted_multiplier}
-                formHandleChange={formHandleChange}
-                setBetForm={setBetForm}
-                betForm={betForm}
-              />
+              <PointsInput />
+              <MultiplierInput />
             </div>
             <Button
+              type="text-lg"
               className="bg-gradient-to-r from-rose-400 to-orange-300 w-full rounded-md p-4 font-bold text-lg mt-6"
               buttonName="Start"
               handleClick={handleGameStart}
