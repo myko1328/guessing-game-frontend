@@ -1,18 +1,14 @@
 import { IoCaretDownSharp, IoCaretUpSharp } from "react-icons/io5";
 import { BetsInputOnChangeProps } from "../types";
+import { usePlayerStore } from "../../store/playerStore";
 
 const MultiplierInput = ({
   formHandleChange,
-
   betForm,
   setBetForm,
 }: BetsInputOnChangeProps) => {
-  const Increment = () => {
-    setBetForm((prevForm: { predicted_multiplier: number }) => ({
-      ...prevForm,
-      predicted_multiplier: (+prevForm.predicted_multiplier + 0.05).toFixed(2),
-    }));
-  };
+  const increaseAmount = usePlayerStore((state) => state.increase_amount);
+  const multiplier = usePlayerStore((state) => state.predicted_multiplier);
 
   const Decrement = () => {
     setBetForm((prevForm: { predicted_multiplier: number }) => ({
@@ -44,12 +40,12 @@ const MultiplierInput = ({
           type="text"
           name="points"
           placeholder=""
-          value={betForm?.predicted_multiplier}
+          value={multiplier}
           onChange={formHandleChange}
         />
 
         <button
-          onClick={Increment}
+          onClick={() => increaseAmount("multiplier")}
           className="w-8 h-8 border border-white rounded-xl"
         >
           <IoCaretUpSharp size={22} style={{ margin: "auto" }} />

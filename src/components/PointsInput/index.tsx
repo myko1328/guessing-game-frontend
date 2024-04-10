@@ -1,17 +1,14 @@
 import { IoCaretDownSharp, IoCaretUpSharp } from "react-icons/io5";
 import { BetsInputOnChangeProps } from "../types";
+import { usePlayerStore } from "../../store/playerStore";
 
 const PointsInput = ({
   formHandleChange,
   betForm,
   setBetForm,
 }: BetsInputOnChangeProps) => {
-  const Increment = () => {
-    setBetForm((prevForm: { bet_points: number }) => ({
-      ...prevForm,
-      bet_points: prevForm.bet_points + 50,
-    }));
-  };
+  const increaseAmount = usePlayerStore((state) => state.increase_amount);
+  const betPts = usePlayerStore((state) => state.bet_points);
 
   // Decrement function
   const Decrement = () => {
@@ -41,12 +38,12 @@ const PointsInput = ({
           type="text"
           name="points"
           placeholder=""
-          value={betForm?.bet_points}
+          value={betPts}
           onChange={formHandleChange}
         />
 
         <button
-          onClick={Increment}
+          onClick={() => increaseAmount("pts")}
           className="w-8 h-8 border border-white rounded-xl"
         >
           <IoCaretUpSharp size={22} style={{ margin: "auto" }} />
