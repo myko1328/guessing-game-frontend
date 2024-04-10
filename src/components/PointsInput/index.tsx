@@ -4,7 +4,6 @@ import { usePlayerStore } from "../../store/playerStore";
 
 const PointsInput = ({
   formHandleChange,
-  betForm,
   setBetForm,
 }: BetsInputOnChangeProps) => {
   const increaseAmount = usePlayerStore((state) => state.increase_amount);
