@@ -5,8 +5,12 @@ import { IoIosChatboxes } from "react-icons/io";
 import Title from "../Title";
 import Button from "../Button";
 import useSendCpuMessages from "../../hooks/useSendCpuMessages";
+import { usePlayerStore } from "../../store/playerStore";
 
-const Chat = ({ registeredName }: { registeredName: string }) => {
+const Chat = () => {
+  const { registeredName } = usePlayerStore((state) => ({
+    registeredName: state.name,
+  }));
   const [socket, setSocket] = useState<Socket>();
   const [messages, setMessages] = useState<string[]>([]);
   const [chatVal, setChatVal] = useState<string>("");

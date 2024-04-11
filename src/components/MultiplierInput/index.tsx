@@ -8,13 +8,13 @@ import { usePlayerStore } from "../../store/playerStore";
 import { BetsInputOnChangeProps } from "../types";
 
 const MultiplierInput = ({ formHandleChange }: BetsInputOnChangeProps) => {
-  const { multiplier, increaseAmount, decreaseAmount } = usePlayerStore(
-    (state) => ({
+  const { multiplier, increaseAmount, decreaseAmount, onAmountChange } =
+    usePlayerStore((state) => ({
       increaseAmount: state.increase_amount,
       decreaseAmount: state.decrease_amount,
+      onAmountChange: state.on_amount_change,
       multiplier: state.predicted_multiplier,
-    })
-  );
+    }));
 
   return (
     <ButtonLayout name="Multiplier">
@@ -31,7 +31,7 @@ const MultiplierInput = ({ formHandleChange }: BetsInputOnChangeProps) => {
         name="points"
         placeholder=""
         value={multiplier}
-        onChange={formHandleChange}
+        onChange={(e) => onAmountChange("multiplier", e.target.value)}
       />
       <Button
         type="icon"

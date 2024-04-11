@@ -5,6 +5,7 @@ import { useGSAP } from "@gsap/react";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
 import { GameResult } from "../types";
 import { renderGraphNumber } from "../../utils/utils";
+import { usePlayerStore } from "../../store/playerStore";
 
 // Register the plugin
 gsap.registerPlugin(MotionPathPlugin);
@@ -12,16 +13,17 @@ gsap.registerPlugin(MotionPathPlugin);
 const MARGIN = { top: 30, right: 30, bottom: 50, left: 50 };
 
 const MultiplierGraph = ({
-  isRegistered,
   gameResult,
   onGameStart,
   animationSpeed,
 }: {
-  isRegistered: boolean;
   gameResult: GameResult;
   onGameStart: boolean;
   animationSpeed: number;
 }) => {
+  const { isRegistered } = usePlayerStore((state) => ({
+    isRegistered: state.is_registered,
+  }));
   const textRef = useRef(null);
   const axesRef = useRef(null);
 

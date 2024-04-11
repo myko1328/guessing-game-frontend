@@ -1,10 +1,17 @@
 import { FaUser } from "react-icons/fa";
 import { IoMdClock } from "react-icons/io";
 import { FaMedal } from "react-icons/fa6";
-import { CardItem, CardProps } from "./types";
+import { CardItem } from "./types";
 import CardItems from "./CardItems";
+import { usePlayerStore } from "../../store/playerStore";
 
-const Cards = ({ registeredName, totalWinnings }: CardProps) => {
+const Cards = () => {
+  const { isRegistered, name, totalWinnings } = usePlayerStore((state) => ({
+    isRegistered: state.is_registered,
+    name: state.name,
+    totalWinnings: state.total_winnings,
+  }));
+
   const currentTime = new Date();
   const hours = currentTime.getHours().toString().padStart(2, "0");
   const minutes = currentTime.getMinutes().toString().padStart(2, "0");
@@ -13,17 +20,17 @@ const Cards = ({ registeredName, totalWinnings }: CardProps) => {
   const cards: CardItem[] = [
     {
       id: 1,
-      title: registeredName.isRegisted && totalWinnings,
+      title: isRegistered && totalWinnings,
       icon: <FaMedal size={22} style={{ margin: "auto 0 auto 0" }} />,
     },
     {
       id: 2,
-      title: registeredName.name && registeredName.name,
+      title: name && name,
       icon: <FaUser size={22} style={{ margin: "auto 0 auto 0" }} />,
     },
     {
       id: 3,
-      title: registeredName.name && formattedTime,
+      title: name && formattedTime,
       icon: <IoMdClock size={22} style={{ margin: "auto 0 auto 0" }} />,
     },
   ];
