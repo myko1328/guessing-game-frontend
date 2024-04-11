@@ -29,32 +29,23 @@ const initialGameState: GameResult = {
 
 function App() {
   const [formData, setFormData] = useState<string>("");
-  const [registeredName, setRegisteredName] = useState<{
-    name: string;
-    isRegisted: boolean;
-  }>({
-    name: "",
-    isRegisted: false,
-  });
   const [onGameStart, setOnGameStart] = useState<boolean>(false);
   const [gameResult, setGameResult] = useState<GameResult>(initialGameState);
   const [animationSpeed, setAnimationSpeed] = useState<number>(1);
 
-  const { betPts, multiplier } = usePlayerStore((state) => ({
+  const {
+    betPts,
+    multiplier,
+    setRegisteredName,
+    isRegistered,
+    setTotalWinnings,
+  } = usePlayerStore((state) => ({
     betPts: state.bet_points,
     multiplier: state.predicted_multiplier,
+    setRegisteredName: state.set_registered_name,
+    isRegistered: state.is_registered,
+    setTotalWinnings: state.set_total_winnings,
   }));
-
-  const [totalWinnings, setTotalWinnings] = useState<number>(0);
-
-  // const formHandleChange = useCallback<
-  //   React.ChangeEventHandler<HTMLInputElement>
-  // >(
-  //   (e) => {
-  //     setBetForm({ ...betForm, [e.target.id]: e.target.value });
-  //   },
-  //   [betForm]
-  // );
 
   const handleChange = useCallback((e: { target: { value: string } }) => {
     setFormData(e.target.value);
@@ -79,10 +70,7 @@ function App() {
       if (response.status === 201 || response.status === 200) {
         const { data } = response;
 
-        setRegisteredName({
-          name: data.name,
-          isRegisted: true,
-        });
+        setRegisteredName(data.name, true);
       }
     } catch (error) {
       console.error("Error:", error);
@@ -104,7 +92,7 @@ function App() {
         const { data } = response;
 
         setGameResult(data);
-        setTotalWinnings((prevTotal) => prevTotal + data.player.winnings);
+        setTotalWinnings(data.player.win_status, data.player.winnings);
       }
     } catch (error) {
       console.error("Error:", error);
@@ -114,7 +102,7 @@ function App() {
   return (
     <div className="container mx-auto">
       <div className="flex gap-4 mt-8">
-        {registeredName.isRegisted ? (
+        {isRegistered ? (
           <aside className="flex-none">
             <div className="flex gap-4">
               <PointsInput />
@@ -138,12 +126,8 @@ function App() {
         )}
 
         <div className="flex-1 col-span-2 w-full">
-          <Cards
-            totalWinnings={totalWinnings}
-            registeredName={registeredName}
-          />
+          <Cards />
           <MultiplierGraph
-            isRegistered={registeredName.isRegisted}
             gameResult={gameResult}
             onGameStart={onGameStart}
             animationSpeed={animationSpeed}
@@ -153,7 +137,7 @@ function App() {
 
       <div className="grid grid-cols-2 gap-4 pb-8">
         <Ranking gameResults={gameResult} />
-        <Chat registeredName={registeredName.name} />
+        <Chat />
       </div>
     </div>
   );
