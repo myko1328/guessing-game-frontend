@@ -16,7 +16,3 @@ export interface GameResult {
   player: PlayerResult;
   cpuPlayers: CpuPlayerResult[];
 }
-
-export interface BetsInputOnChangeProps {
-  formHandleChange?: React.ChangeEventHandler<HTMLInputElement>;
-}

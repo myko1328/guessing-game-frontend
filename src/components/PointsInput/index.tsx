@@ -5,9 +5,7 @@ import ButtonLayout from "../Button/layout";
 
 import { usePlayerStore } from "../../store/playerStore";
 
-import { BetsInputOnChangeProps } from "../types";
-
-const PointsInput = ({ formHandleChange }: BetsInputOnChangeProps) => {
+const PointsInput = () => {
   const { betPts, increaseAmount, decreaseAmount, onAmountChange } =
     usePlayerStore((state) => ({
       increaseAmount: state.increase_amount,
